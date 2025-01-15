@@ -60,13 +60,4 @@ class Users::RegistrationsController < Devise::RegistrationsController
   #   super(resource)
   # end
 
-  private
 
-  def configure_sign_up_params
-    # 必要なパラメータを許可
-    devise_parameter_sanitizer.permit(:sign_up, keys: [
-      :nickname, :last_name, :first_name, :last_name_kana, :first_name_kana, 
-      birth_date: [:year, :month, :day]
-    ])
-  end
-end
