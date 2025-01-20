@@ -130,7 +130,7 @@
   <% if @items.present? %>
     <% @items.each do |item| %>
       <li class='list'>
-        <%= link_to item_path(item) do %>
+        <%= link_to "#" do %>
           <div class='item-img-content'>
            <%= image_tag (item.product_image.attached? ? url_for(item.product_image) : "item-sample.png"), class: "item-img" %>
             <%# if item.sold_out? %>
