@@ -25,11 +25,9 @@
       </span>
     </div>
 
-    <%# ログインしているユーザーと出品しているユーザーが、同一人物の場合と同一人物ではない場合で、処理を分けましょう %>
     <% if user_signed_in? %>
       <%# 売却済みの場合は何も表示しない %>
       <%# if @item.sold_out? %>
-        <%# 商品が売れた場合に表示を変える処理を追加 %>
       <%# else %>
         <% if current_user.id == @item.user_id %>
           <%# ログイン状態で、自身が出品した販売中の商品 %>
@@ -44,11 +42,11 @@
     <% else %>
       <%# ログアウト状態の場合、何も表示しない %>
     <% end %>
-    <%# //ログインしているユーザーと出品しているユーザーが、同一人物の場合と同一人物ではない場合で、処理を分けましょう %>
 
     <div class="item-explain-box">
-      <span><%= "商品説明" %></span>
+      <span><%= @item.product_description %></span>
     </div>
+
     <table class="detail-table">
       <tbody>
         <tr>
@@ -112,9 +110,7 @@
       後ろの商品 ＞
     </a>
   </div>
-  <%# 詳細ページで表示されている商品のカテゴリー名を表示しましょう %>
-  <a href="#" class="another-item"><%= "商品のカテゴリー名" %>をもっと見る</a>
-  <%# //詳細ページで表示されている商品のカテゴリー名を表示しましょう %>
+  <a href=<%= @item.category %> class="another-item"><%= @item.category.name %>をもっと見る</a>
 </div>
 
 <%= render "shared/footer" %>
