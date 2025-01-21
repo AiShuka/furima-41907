@@ -31,7 +31,7 @@
       <%# else %>
         <% if current_user.id == @item.user_id %>
           <%# ログイン状態で、自身が出品した販売中の商品 %>
-          <%= link_to "商品の編集", "#" , method: :get, class: "item-red-btn" %>
+          <%= link_to "商品の編集", edit_item_path(@item) , method: :get, class: "item-red-btn" %>
           <p class="or-text">or</p>
           <%= link_to "削除", "#" , data: {turbo_method: :delete}, class:"item-destroy" %>
         <% else %>
