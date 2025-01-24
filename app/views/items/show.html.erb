@@ -36,7 +36,7 @@
           <%= link_to "削除", item_path(@item) , data: {turbo_method: :delete}, class:"item-destroy" %>
         <% else %>
           <%# ログイン状態で、自身が出品していない販売中の商品 %>
-          <%= link_to "購入画面に進む", "#" , class: "item-red-btn" %>
+          <%= link_to "購入画面に進む", item_purchases_path(@item) , data: { turbo: false }, class: "item-red-btn" %>
         <% end %>
       <%# end %>
     <% else %>
