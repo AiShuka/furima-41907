@@ -1,17 +1,25 @@
 <!DOCTYPE html>
 <html>
-
 <head>
   <title>Furima</title>
   <meta name="viewport" content="width=device-width,initial-scale=1">
   <%= csrf_meta_tags %>
   <%= csp_meta_tag %>
+
+  <script src="https://js.pay.jp/v2/pay.js"></script>
+
   <%= javascript_importmap_tags %>
+
+  <%= Gon::Base.render_data %>
+
+  <script>
+    console.log("Gon public key:", gon.public_key);
+  </script>
+
   <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
 </head>
 
 <body>
   <%= yield %>
 </body>
-
 </html>

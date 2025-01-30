@@ -2,6 +2,12 @@ class Item < ApplicationRecord
   has_one_attached :product_image
   belongs_to :user
 
+  has_one :purchase
+
+  def sold_out?
+    purchase.present?
+  end
+
   validates :product_image, presence: true
   validates :product_name, presence: true
   validates :product_description, presence: true
