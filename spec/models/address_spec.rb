@@ -2,7 +2,9 @@ require 'rails_helper'
 
 RSpec.describe Address, type: :model do
   before do
-    @purchase_form = FactoryBot.build(:purchase_form)
+    user = FactoryBot.create(:user)
+    item = FactoryBot.create(:item, user: user)
+    @purchase_form = FactoryBot.build(:purchase_form, user_id: user.id, item_id: item.id)
   end
 
   describe '購入情報の保存' do

@@ -24,22 +24,14 @@
       </span>
     </div>
 
-    <% if user_signed_in? %>
-      <%# 売却済みの場合は何も表示しない %>
-      <% if @item.sold_out? %>
+    <% if user_signed_in? && !@item.sold_out? %>
+      <% if current_user.id == @item.user_id %>
+        <%= link_to "商品の編集", edit_item_path(@item), method: :get, class: "item-red-btn" %>
+        <p class="or-text">or</p>
+        <%= link_to "削除", item_path(@item), data: { turbo_method: :delete }, class: "item-destroy" %>
       <% else %>
-        <% if current_user.id == @item.user_id %>
-          <%# ログイン状態で、自身が出品した販売中の商品 %>
-          <%= link_to "商品の編集", edit_item_path(@item) , method: :get, class: "item-red-btn" %>
-          <p class="or-text">or</p>
-          <%= link_to "削除", item_path(@item) , data: {turbo_method: :delete}, class:"item-destroy" %>
-        <% else %>
-          <%# ログイン状態で、自身が出品していない販売中の商品 %>
-          <%= link_to "購入画面に進む", item_purchases_path(@item) , data: { turbo: false }, class: "item-red-btn" %>
-        <% end %>
+        <%= link_to "購入画面に進む", item_purchases_path(@item), data: { turbo: false }, class: "item-red-btn" %>
       <% end %>
-    <% else %>
-      <%# ログアウト状態の場合、何も表示しない %>
     <% end %>
 
     <div class="item-explain-box">
