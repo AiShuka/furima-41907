@@ -2,6 +2,7 @@ class PurchasesController < ApplicationController
   before_action :set_item, only: [:index, :create]
   before_action :authenticate_user!, only: [:index, :create]
   before_action :redirect_if_seller, only: [:index, :create]
+  before_action :redirect_if_sold_out, only: [:index, :create]
 
   def index
     gon.public_key = ENV["PAYJP_PUBLIC_KEY"]
@@ -28,6 +29,12 @@ class PurchasesController < ApplicationController
 
   def redirect_if_seller
     if current_user == @item.user
+      redirect_to root_path
+    end
+  end
+
+  def redirect_if_sold_out
+    if @item.purchase.present? 
       redirect_to root_path
     end
   end
