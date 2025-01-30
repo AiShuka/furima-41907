@@ -24,7 +24,7 @@ RSpec.describe Address, type: :model do
         expect(@purchase_form.errors.full_messages).to include("Postal code can't be blank")
       end
 
-      it '郵便番号が「3桁ハイフン4桁」の半角文字列でないと保存できないこと' do
+      it '郵便番号が半角ハイフンを含む形でないと保存できないこと' do
         @purchase_form.postal_code = '1234567'
         @purchase_form.valid?
         expect(@purchase_form.errors.full_messages).to include('Postal code is invalid. Include hyphen(-)')
@@ -35,8 +35,26 @@ RSpec.describe Address, type: :model do
         @purchase_form.valid?
         expect(@purchase_form.errors.full_messages).to include('Shipping from must be selected')
       end
+
+      it '市区町村が空では購入できない' do
+        @purchase_form.city = ''
+        @purchase_form.valid?
+        expect(@purchase_form.errors.full_messages).to include("City can't be blank")
+      end
+
+      it '番地が空では購入できない' do
+        @purchase_form.street_address = ''
+        @purchase_form.valid?
+        expect(@purchase_form.errors.full_messages).to include("Street address can't be blank")
+      end
+
+      it '電話番号が空では購入できない' do
+        @purchase_form.phone_number = ''
+        @purchase_form.valid?
+        expect(@purchase_form.errors.full_messages).to include("Phone number can't be blank")
+      end
       
-      it '電話番号が10桁未満では保存できないこと' do
+      it '電話番号が9桁以下では保存できないこと' do
         @purchase_form.phone_number = '090123456'
         @purchase_form.valid?
         expect(@purchase_form.errors.full_messages).to include('Phone number is invalid. Enter without hyphen(-)')
@@ -48,11 +66,12 @@ RSpec.describe Address, type: :model do
         expect(@purchase_form.errors.full_messages).to include('Phone number is invalid. Enter without hyphen(-)')
       end
       
-      it '電話番号が半角数字でないと保存できないこと' do
-        @purchase_form.phone_number = '０９０１２３４５６７８'
+      it '電話番号に半角数字以外が含まれている場合は保存できないこと' do
+        @purchase_form.phone_number = '090-1234-5678'
         @purchase_form.valid?
         expect(@purchase_form.errors.full_messages).to include('Phone number is invalid. Enter without hyphen(-)')
       end
+
       it 'トークンが空では保存できないこと' do
         @purchase_form.token = ''
         @purchase_form.valid?
