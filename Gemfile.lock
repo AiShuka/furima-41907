@@ -235,7 +235,6 @@ GEM
       racc
     payjp (0.0.16)
       rest-client (~> 2.0)
-    pg (1.5.9)
     pp (0.6.2)
       prettyprint
     prettyprint (0.2.0)
@@ -412,7 +411,6 @@ DEPENDENCIES
   mini_magick
   mysql2 (~> 0.5)
   payjp
-  pg
   puma (~> 5.0)
   rails (~> 7.1.0)
   rspec-rails (~> 4.0.0)
